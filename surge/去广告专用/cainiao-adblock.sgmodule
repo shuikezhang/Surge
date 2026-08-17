@@ -18,10 +18,10 @@ DOMAIN-SUFFIX,adx-data-u1.ubixioe.com,REJECT
 
 [Script]
 # 将 Loon reject-dict 转为 Surge 原生 mock response：HTTP 200 + 合法 {}。
-# 上传到 GitHub 后，把 YOUR_GITHUB_USERNAME/YOUR_REPOSITORY 替换为实际路径。
-cainiao-mock = type=http-request,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/|amdc\.m\.taobao\.com/amdc/),script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-request.js,engine=jsc,script-update-interval=86400
+# 脚本固定使用 jsDelivr，并锁定到已验证提交，避开 GitHub Raw 限流。
+cainiao-mock = type=http-request,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/|amdc\.m\.taobao\.com/amdc/),script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@e8ca79946854bde62ba19c52916b3a3cc5ed1fd8/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-request.js,engine=jsc,script-update-interval=86400
 # 仅处理菜鸟广告/推广 JSON；响应体限制 1 MiB，降低 iOS Surge 内存压力。
-cainiao-response = type=http-response,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/).*mtop\.(?:cainiao\.guoguo\.nbnetflow\.ads\.(?:m?show)|cainiao\.nbpresentation\.(?:pickup\.empty\.page|protocol\.homepage)\.get|nbfriend\.message\.conversation\.list|cainiao\.app\.mine\.main)(?:\.|$),script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-response.js,requires-body=true,max-size=1048576,engine=webview,script-update-interval=86400
+cainiao-response = type=http-response,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/).*mtop\.(?:cainiao\.guoguo\.nbnetflow\.ads\.(?:m?show)|cainiao\.nbpresentation\.(?:pickup\.empty\.page|protocol\.homepage)\.get|nbfriend\.message\.conversation\.list|cainiao\.app\.mine\.main)(?:\.|$),script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@e8ca79946854bde62ba19c52916b3a3cc5ed1fd8/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-response.js,requires-body=true,max-size=1048576,engine=webview,script-update-interval=86400
 
 [MITM]
 # 只解密脚本需要处理的菜鸟/淘宝接口；不会启用全局 MITM。
