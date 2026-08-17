@@ -1,0 +1,30 @@
+#!name=菜鸟 iOS 去广告（Surge 增强版）
+#!desc=参考可莉 Loon 菜鸟插件并结合两份 iOS PCAP；域名拦截、广告接口空对象响应和首页/我的页面结构化广告清理。
+#!author=Minis；规则参考 RuCu6 / Keywos / 可莉
+#!homepage=https://github.com/luestr/ProxyResource
+#!category=广告拦截
+#!requirement=CORE_VERSION>=20
+
+[Rule]
+# 两份 iOS PCAP 交叉确认的广告链路
+DOMAIN-SUFFIX,adashx.ut.cainiao.com,REJECT
+DOMAIN-SUFFIX,api-access.pangolin-sdk-toutiao1.com,REJECT
+DOMAIN-SUFFIX,admonitor-feedback.cn-hangzhou.log.aliyuncs.com,REJECT
+# 第一份 PCAP 确认的腾讯广点通/广告交易链路
+DOMAIN-SUFFIX,pgdt.gtimg.cn,REJECT
+DOMAIN-SUFFIX,v.gdt.qq.com,REJECT
+DOMAIN-SUFFIX,pgdt.ugdtimg.com,REJECT
+DOMAIN-SUFFIX,adx-data-u1.ubixioe.com,REJECT
+
+[Script]
+# 将 Loon reject-dict 转为 Surge 原生 mock response：HTTP 200 + 合法 {}。
+# 上传到 GitHub 后，把 YOUR_GITHUB_USERNAME/YOUR_REPOSITORY 替换为实际路径。
+cainiao-mock = type=http-request,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/|amdc\.m\.taobao\.com/amdc/),script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-request.js,engine=jsc,script-update-interval=86400
+# 仅处理菜鸟广告/推广 JSON；响应体限制 1 MiB，降低 iOS Surge 内存压力。
+cainiao-response = type=http-response,pattern=^https?://(?:cn-acs\.m\.cainiao\.com/gw/|guide-acs\.m\.taobao\.com/gw/).*mtop\.(?:cainiao\.guoguo\.nbnetflow\.ads\.(?:m?show)|cainiao\.nbpresentation\.(?:pickup\.empty\.page|protocol\.homepage)\.get|nbfriend\.message\.conversation\.list|cainiao\.app\.mine\.main)(?:\.|$),script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/cainiao-response.js,requires-body=true,max-size=1048576,engine=webview,script-update-interval=86400
+
+[MITM]
+# 只解密脚本需要处理的菜鸟/淘宝接口；不会启用全局 MITM。
+# 首次使用前需在 Surge 中生成、安装并信任 CA。
+hostname = %APPEND% cn-acs.m.cainiao.com, guide-acs.m.taobao.com, amdc.m.taobao.com
+h2 = true
