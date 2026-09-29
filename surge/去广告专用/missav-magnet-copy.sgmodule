@@ -1,5 +1,5 @@
 #!name=MissAV 磁力复制与去广告
-#!desc=视频页磁力一键复制；去除已确认广告位并阻止播放器点击弹窗。
+#!desc=全站清理已确认广告位和悬浮弹窗；视频页保留磁力一键复制。
 #!author=Minis
 
 [Rule]
@@ -8,10 +8,12 @@ DOMAIN,creative.myavlive.com,REJECT
 DOMAIN,go.mayzaent.com,REJECT
 DOMAIN,t.snaptrckr.fun,REJECT
 DOMAIN,cdn.tsyndicate.com,REJECT
+DOMAIN,t.rallytrck.website,REJECT
+DOMAIN,partwithner.com,REJECT
 
 [Script]
-# 仅处理 missav.ai 的单级视频详情页（可带 /en/ 等语言前缀）；需读取 HTML 响应体。
-missav-magnet-copy = type=http-response,pattern=^https:\/\/missav\.ai\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?[^/?#]+(?:\?.*)?$,script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@625aca64ddc94a8172c43a368936a2f44634e196/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/missav-magnet-copy.js,requires-body=true,max-size=2097152,engine=webview,script-update-interval=86400
+# 处理站点 HTML；脚本内再次检查 HTML 和广告标记，非目标资源原样放行。
+missav-magnet-copy = type=http-response,pattern=^https:\/\/missav\.ai\/(?!(?:api|build|js|css|fonts|cdn-cgi)\/)(?:dm\d+\/)?(?:[a-z]{2}(?:-[a-z]{2})?\/)?[^?#]*(?:\?[^#]*)?$,script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@a5c1d7998b962e5ca193a9d584b38ad373aee048/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/missav-magnet-copy.js,requires-body=true,max-size=2097152,engine=webview,script-update-interval=86400
 
 [MITM]
 # 首次使用须安装并信任 Surge CA，仅对此站点启用解密。
