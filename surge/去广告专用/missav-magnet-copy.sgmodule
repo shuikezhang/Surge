@@ -1,0 +1,11 @@
+#!name=MissAV 磁力一键复制
+#!desc=给 MissAV 视频页的磁力链接增加复制按钮；不跳转磁力协议或第三方下载页。
+#!author=Minis
+
+[Script]
+# 仅处理 missav.ai 的单级视频详情页（可带 /en/ 等语言前缀）；需读取 HTML 响应体。
+missav-magnet-copy = type=http-response,pattern=^https:\/\/missav\.ai\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?[^/?#]+(?:\?.*)?$,script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@9cc044ca5f0667e2629f94f8f240f680e9c94fab/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/missav-magnet-copy.js,requires-body=true,max-size=2097152,engine=webview,script-update-interval=86400
+
+[MITM]
+# 首次使用须安装并信任 Surge CA，仅对此站点启用解密。
+hostname = %APPEND% missav.ai
