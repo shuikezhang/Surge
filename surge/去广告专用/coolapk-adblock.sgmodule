@@ -1,0 +1,51 @@
+#!name=酷安去广告 (Surge)
+#!desc=针对酷安 iOS 客户端去广告：精准拦截第三方广告联盟 SDK（腾讯优量汇、穿山甲 GroMore、阿里 Tanx、数盟反作弊等）、移除信息流推广卡片（sponsorCard、穿山甲自渲染广告位）、清洗电商导购返利轮播。基于真机 HAR 抓包逆向分析。
+#!author=Minis
+#!category=去广告专用
+#!requirement=CORE_VERSION>=20
+
+[Rule]
+# === 1. 腾讯优量汇 / 广点通 (GDT SDK) ===
+DOMAIN,mi.gdt.qq.com,REJECT
+DOMAIN,v2mi.gdt.qq.com,REJECT
+DOMAIN,v.gdt.qq.com,REJECT
+DOMAIN,v3.gdt.qq.com,REJECT
+DOMAIN,win.gdt.qq.com,REJECT
+DOMAIN,ipv4.gdt.qq.com,REJECT
+DOMAIN,qzs.gdtimg.com,REJECT
+DOMAIN,pgdt.ugdtimg.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,sdkquic.e.qq.com,REJECT
+
+# === 2. 字节跳动穿山甲 / GroMore 聚合广告平台 ===
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN,toblog.ctobsnssdk.com,REJECT
+DOMAIN,apmplus.volces.com,REJECT
+
+# === 3. 阿里妈妈 Tanx 广告 & 阿里百川 SDK 打点 ===
+DOMAIN-SUFFIX,tanx.com,REJECT
+DOMAIN,baichuan-sdk.alicdn.com,REJECT
+DOMAIN,adashbc.ut.taobao.com,REJECT
+DOMAIN,adashxgc.ut.taobao.com,REJECT
+
+# === 4. 数盟设备追踪与反作弊联盟 ===
+DOMAIN,idfa2.shuzilm.cn,REJECT
+
+# === 5. 天翼广告与京东打点 ===
+DOMAIN,iuni.telecome.cn,REJECT
+DOMAIN,dg.k.jd.com,REJECT
+
+# === 6. 友盟统计与设备打点 SDK ===
+DOMAIN-SUFFIX,umeng.com,REJECT
+DOMAIN-SUFFIX,umengcloud.com,REJECT
+
+[Script]
+# 酷安信息流与页面卡片去广告：过滤 sponsorCard 广告物料、穿山甲 GroMore 推广卡片、清洗推广轮播
+coolapk-feed-clean = type=http-response,pattern=^https?://api\.coolapk\.com/v6/(?:main/indexV8|page/dataList|feed/detail|feed/replyList|main/init),script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@bc7592afc99712b53150724cdc081a03cb802268/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/coolapk-response.js,requires-body=true,max-size=5242880,engine=jsc,script-update-interval=86400
+
+[MITM]
+hostname = %APPEND% api.coolapk.com
