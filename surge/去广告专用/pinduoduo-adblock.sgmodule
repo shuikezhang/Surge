@@ -1,15 +1,23 @@
 #!name=拼多多去广告及界面净化 (Surge)
-#!desc=去除拼多多 iOS 客户端首页拼小圈、顶部金刚区活动入口（秒杀/买菜/转盘/果园等）、底部多多视频与大促营销 Tab，拦截 APM 性能采集与打点上报。基于真机 HAR 抓包逆向分析。
+#!desc=去除拼多多 iOS 客户端首页拼小圈、顶部金刚区活动入口（秒杀/买菜/转盘/果园等）、底部多多视频与大促营销 Tab；拦截 Titan 私有长连接穿透与 HTTPDNS，阻断 APM 性能采集与打点上报。基于真机 HAR 抓包逆向分析。
 #!author=Minis
 #!category=去广告专用
 #!requirement=CORE_VERSION>=20
 
 [Rule]
-# === 1. 拦截 APM 性能与监控上报 ===
+# === 1. 阻断 Titan 私有长连接与 HTTPDNS 穿透（强制回退到标准域名 HTTPS） ===
+URL-REGEX,^https?:\/\/\d+\.\d+\.\d+\.\d+(?::\d+)?\/(?:ngrtt\/zqog|d5|v3\/d),REJECT
+DOMAIN,xg.pinduoduo.com,REJECT
+IP-CIDR,81.69.130.121/32,REJECT,no-resolve
+IP-CIDR,121.5.84.0/24,REJECT,no-resolve
+IP-CIDR,101.35.204.35/32,REJECT,no-resolve
+IP-CIDR,140.207.238.0/24,REJECT,no-resolve
+
+# === 2. 拦截 APM 性能与监控上报 ===
 DOMAIN,apm.pinduoduo.com,REJECT
 DOMAIN,apm-a.pinduoduo.com,REJECT
 
-# === 2. 拦截通用打点与追踪接口 ===
+# === 3. 拦截通用打点与追踪接口 ===
 DOMAIN,th-a.pinduoduo.com,REJECT
 DOMAIN,ta-a.pinduoduo.com,REJECT
 DOMAIN,abtk.pinduoduo.com,REJECT
