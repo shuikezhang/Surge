@@ -1,0 +1,22 @@
+#!name=拼多多去广告及界面净化 (Surge)
+#!desc=去除拼多多 iOS 客户端首页拼小圈、顶部金刚区活动入口（秒杀/买菜/转盘/果园等）、底部多多视频与大促营销 Tab，拦截 APM 性能采集与打点上报。基于真机 HAR 抓包逆向分析。
+#!author=Minis
+#!category=去广告专用
+#!requirement=CORE_VERSION>=20
+
+[Rule]
+# === 1. 拦截 APM 性能与监控上报 ===
+DOMAIN,apm.pinduoduo.com,REJECT
+DOMAIN,apm-a.pinduoduo.com,REJECT
+
+# === 2. 拦截通用打点与追踪接口 ===
+DOMAIN,th-a.pinduoduo.com,REJECT
+DOMAIN,ta-a.pinduoduo.com,REJECT
+DOMAIN,abtk.pinduoduo.com,REJECT
+
+[Script]
+# 首页净化：去除拼小圈、金刚区、底部多多视频与国庆立减
+pinduoduo-home-clean = type=http-response,pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub,script-path=https://fastly.jsdelivr.net/gh/shuikezhang/Surge@1de4904eb75bff5aa94df01b1825a2916c15170f/surge/%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%B8%93%E7%94%A8/scripts/pinduoduo-response.js,requires-body=true,max-size=524288,engine=jsc,script-update-interval=86400
+
+[MITM]
+hostname = %APPEND% api.pinduoduo.com
