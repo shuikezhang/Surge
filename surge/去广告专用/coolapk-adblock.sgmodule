@@ -7,7 +7,7 @@
 [Rule]
 # === 1. 腾讯优量汇 / 广点通 (GDT SDK) ===
 DOMAIN,mi.gdt.qq.com,REJECT
-DOMAIN,v2mi.gdt.qq.com,REJECT
+DOMAIN,v2mi.gdt.qq.com,REJECT-DROP
 DOMAIN,v.gdt.qq.com,REJECT
 DOMAIN,v3.gdt.qq.com,REJECT
 DOMAIN,win.gdt.qq.com,REJECT
