@@ -1,5 +1,5 @@
 #!name=Emby Proxy
-#!desc=Route emby.cole.best through the existing PROXY policy. No DNS override or HTTPS decryption.
+#!desc=Route emby.cole.best through the existing Proxy policy. No DNS override or HTTPS decryption.
 
 [Rule]
-DOMAIN,emby.cole.best,PROXY
+DOMAIN,emby.cole.best,Proxy
