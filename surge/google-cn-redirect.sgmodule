@@ -1,0 +1,8 @@
+#!name=Google 中国入口跳过中转页
+#!desc=将 google.cn、google.com.cn、g.cn 的入口跳转到 www.google.com，保留搜索路径及参数。HTTPS 重写需要启用 Surge MITM 并信任自己的 CA 证书；仅追加中国入口域名，不解密目标 google.com。
+
+[URL Rewrite]
+^https?:\/\/(?:www\.)?(?:google\.cn|google\.com\.cn|g\.cn)((?:\/|\?).*)?$ https://www.google.com$1 302
+
+[MITM]
+hostname = %APPEND% google.cn, www.google.cn, google.com.cn, www.google.com.cn, g.cn, www.g.cn
