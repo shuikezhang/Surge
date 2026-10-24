@@ -1,0 +1,16 @@
+#!name=Emby Home Auto - iPhone
+#!desc=iOS only: use SHUI LAN HTTPS on home Wi-Fi 701 with gateway 192.168.31.185. Else retain existing rules/Proxy and public DNS. Scripting must be enabled. Keep above other cole.best modules. tvOS is sync-only for this module.
+#!requirement=CORE_VERSION>=22 && (SYSTEM == 'iOS' || SYSTEM == 'tvOS')
+
+[General]
+#!REQUIREMENT SYSTEM=='iOS' always-real-ip = %APPEND% emby.cole.best
+
+[Script]
+#!REQUIREMENT SYSTEM=='iOS' emby-home-ios-dns = type=dns,script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/emby-home-ios-dns.js,engine=jsc,timeout=3
+#!REQUIREMENT SYSTEM=='iOS' emby-home-ios-rule = type=rule,script-path=https://raw.githubusercontent.com/shuikezhang/Surge/minis/create-surge-ad-folder-20260817/surge/emby-home-ios-rule.js,engine=jsc,timeout=3
+
+[Host]
+#!REQUIREMENT SYSTEM=='iOS' emby.cole.best = script:emby-home-ios-dns
+
+[Rule]
+#!REQUIREMENT SYSTEM=='iOS' AND,((DOMAIN,emby.cole.best),(SCRIPT,emby-home-ios-rule)),DIRECT
