@@ -1,0 +1,45 @@
+{
+  "name": "Cole Icons 20261031",
+  "icons": [
+    {
+      "name": "Proxy",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/Proxy.png"
+    },
+    {
+      "name": "AIGC",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/AIGC.png"
+    },
+    {
+      "name": "Telegram",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/Telegram.png"
+    },
+    {
+      "name": "HK",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/HK.png"
+    },
+    {
+      "name": "SG",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/SG.png"
+    },
+    {
+      "name": "JP",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/JP.png"
+    },
+    {
+      "name": "US",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/US.png"
+    },
+    {
+      "name": "TW",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/TW.png"
+    },
+    {
+      "name": "KR",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/KR.png"
+    },
+    {
+      "name": "OTHER",
+      "url": "https://raw.githubusercontent.com/shuikezhang/Surge/master/icons/cole-20261031/OTHER.png"
+    }
+  ]
+}
