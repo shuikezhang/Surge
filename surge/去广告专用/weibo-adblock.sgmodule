@@ -9,6 +9,8 @@
 # 腾讯广告 / 优量汇 (GDT SDK)
 DOMAIN,mi.gdt.qq.com,REJECT
 DOMAIN,v2mi.gdt.qq.com,REJECT
+DOMAIN,ipv4.gdt.qq.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
 DOMAIN,v3.gdt.qq.com,REJECT
 DOMAIN,win.gdt.qq.com,REJECT
 DOMAIN,qzs.gdtimg.com,REJECT
@@ -36,6 +38,7 @@ DOMAIN,ucc.umeng.com,REJECT
 # === 2. 微博官方广告与开屏上报链路 ===
 # 微博开屏预加载与商业化策略
 DOMAIN,bootpreload.uve.weibo.com,REJECT
+DOMAIN,bootrealtime.uve.weibo.com,REJECT
 DOMAIN,adstrategy.biz.weibo.com,REJECT
 DOMAIN,vs.biz.weibo.com,REJECT
 
