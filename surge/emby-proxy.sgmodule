@@ -1,5 +1,7 @@
 #!name=Emby Proxy
-#!desc=Route cole.best and all subdomains through the existing Proxy policy. No DNS override or HTTPS decryption.
+#!desc=Emby HK entry domains use DIRECT; other cole.best domains use the existing Proxy policy. No DNS override or HTTPS decryption.
 
 [Rule]
+DOMAIN,emby.cole.best,DIRECT
+DOMAIN,emby-hk.cole.best,DIRECT
 DOMAIN-SUFFIX,cole.best,Proxy
