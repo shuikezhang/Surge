@@ -1,7 +1,13 @@
 #!name=Emby Proxy
-#!desc=Emby HK entry domains use DIRECT; other cole.best domains use the existing Proxy policy. No DNS override or HTTPS decryption.
+#!desc=Direct HK/JP gateway domains (emby, danmu, ai, sub2, tz, pd, rd) use DIRECT; other cole.best domains use Proxy Subnet (DIRECT on home SSID 701, Proxy outside). No DNS override or HTTPS decryption.
 
 [Rule]
 DOMAIN,emby.cole.best,DIRECT
 DOMAIN,emby-hk.cole.best,DIRECT
-DOMAIN-SUFFIX,cole.best,Proxy
+DOMAIN,danmu.cole.best,DIRECT
+DOMAIN,ai.cole.best,DIRECT
+DOMAIN,sub2.cole.best,DIRECT
+DOMAIN,tz.cole.best,DIRECT
+DOMAIN,pd.cole.best,DIRECT
+DOMAIN,rd.cole.best,DIRECT
+DOMAIN-SUFFIX,cole.best,Proxy Subnet
