@@ -32,6 +32,7 @@ event network-changed script-path=JS/nextdns_linkedip.js
 $httpClient.post('https://link-ip.nextdns.io/4af4c8/88e9a964ed89a8bd', function(error, response, data){
   if (error) {
 console.log(error + '‼️');
+$done();
   } else {
 console.log(data);
 $done();
